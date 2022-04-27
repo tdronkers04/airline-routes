@@ -1395,4 +1395,10 @@ const airports = [
 
 ];
 
-export default {routes, airlines, airports};
+const data = {
+  routes,
+  airlines,
+  airports 
+}
+
+export default data;

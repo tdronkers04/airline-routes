@@ -1,17 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
+import data from './data'
+import Routes from './components/Routes';
 
-const App = () => (
-  <div className="app">
-  <header className="header">
-    <h1 className="title">Airline Routes</h1>
-  </header>
-  <section>
-    <p>
-      Welcome to the app!
-    </p>
-  </section>
-</div>
-)
+const App = () => {
+  return (
+    <div className="app">
+      <header className="header">
+        <h1 className="title">Airline Routes</h1>
+      </header>
+      <section>
+        <Routes routes={data.routes}/>
+      </section>
+    </div>
+  )
+}
 
 export default App;
