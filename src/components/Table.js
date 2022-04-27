@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 
-const Table = ({ columns, rows, format }) => {
-  const [range, setRange] = useState({start: 0, end: 24})
+const Table = ({ columns, rows, format, perPage }) => {
+  const [range, setRange] = useState({start: perPage - perPage, end: perPage - 1})
 
   const handleClick = (event) => {
     const newRange = {}
     if (event.target.id === 'prev-btn') {
-      newRange.start = range.start -= 25
-      newRange.end = range.end -= 25
+      newRange.start = range.end - (perPage * 2) >= 0 ? range.end - (perPage * 2) : 0
+      newRange.end = range.end - perPage
     } else if (event.target.id === 'next-btn') {
-      newRange.start = range.start += 25
-      newRange.end = range.end += 25
+      newRange.start = range.start + perPage
+      newRange.end = range.start + (perPage * 2) <= rows.length - 1 ? range.start + (perPage * 2) : rows.length - 1
     }
     setRange(newRange)
   }
@@ -40,7 +40,7 @@ const Table = ({ columns, rows, format }) => {
         <p>{`Displaying Routes ${range.start + 1} - ${range.end + 1} of ${rows.length}`}</p>
         <div className='pagination'>
           <button disabled={range.start === 0 ? true : false} id="prev-btn" onClick={handleClick}>prev</button>
-          <button disabled={range.end >= rows.length - 1 ? true : false} id="next-btn" onClick={handleClick}>next</button>
+          <button disabled={range.end === rows.length - 1 ? true : false} id="next-btn" onClick={handleClick}>next</button>
         </div>
       </div>
     </div>
