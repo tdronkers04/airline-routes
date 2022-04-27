@@ -1,7 +1,22 @@
 import React from 'react';
 import './App.css';
-import data from './data'
-import Routes from './components/Routes';
+import data, { getAirlineById, getAirportByCode } from './data'
+import Table from './components/Table';
+
+const columns = [
+  {name: 'Airline', property: 'airline'},
+  {name: 'Source Airport', property: 'src'},
+  {name: 'Destination Airport', property: 'dest'},
+];
+
+const formatValue = (property, name) => {
+  switch(property) {
+    case 'airline':
+      return getAirlineById(name);
+    default:
+      return getAirportByCode(name);
+  }
+}
 
 const App = () => {
   return (
@@ -10,7 +25,7 @@ const App = () => {
         <h1 className="title">Airline Routes</h1>
       </header>
       <section>
-        <Routes routes={data.routes}/>
+        <Table className="routes-table" columns={columns} rows={data.routes} format={formatValue}/>
       </section>
     </div>
   )
