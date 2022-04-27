@@ -1,16 +1,18 @@
 import React from 'react'
+import { getAirlineById, getAirportByCode } from '../data'
 
 const Route = ({ route }) => {
   return (
     <tr>
-      <td>{route.airline}</td>
-      <td>{route.src}</td>
-      <td>{route.dest}</td>
+      <td>{getAirlineById(route.airline)}</td>
+      <td>{getAirportByCode(route.src)}</td>
+      <td>{getAirportByCode(route.dest)}</td>
     </tr>
   )
 }
 
 const Routes = ({ routes }) => {
+  
   return (
     <table>
       <thead>
