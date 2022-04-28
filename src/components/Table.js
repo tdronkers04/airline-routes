@@ -15,7 +15,8 @@ const Table = ({ columns, rows, format, perPage }) => {
     setRange(newRange)
   }
 
-  const filteredRows = rows.filter((_, index) => index >= range.start && index <= range.end)
+  const rangeFilteredRows = rows.filter((_, index) => index >= range.start && index <= range.end)
+
   return (
     <div>
       <table className='routes-table'>
@@ -25,7 +26,7 @@ const Table = ({ columns, rows, format, perPage }) => {
           </tr>
         </thead>
         <tbody>
-          {filteredRows.map(row => {
+          {rangeFilteredRows.map(row => {
             return (
               <tr key={JSON.stringify(row)}>
                 <td>{format('airline', row.airline)}</td>
@@ -37,7 +38,7 @@ const Table = ({ columns, rows, format, perPage }) => {
         </tbody>
       </table>
       <div className='page-control'>
-        <p>{`Displaying Routes ${range.start + 1} - ${range.end + 1} of ${rows.length}`}</p>
+        <p>{`Displaying Routes ${range.start + 1} - ${range.end + 1} of ${rows.length} routes`}</p>
         <div className='pagination'>
           <button disabled={range.start === 0 ? true : false} id="prev-btn" onClick={handleClick}>prev</button>
           <button disabled={range.end === rows.length - 1 ? true : false} id="next-btn" onClick={handleClick}>next</button>

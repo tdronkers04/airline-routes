@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import data, { getAirlineById, getAirportByCode } from './data'
 import Table from './components/Table';
+import Select from './components/Select';
 
 const columns = [
   {name: 'Airline', property: 'airline'},
@@ -19,13 +20,24 @@ const formatValue = (property, name) => {
 }
 
 const App = () => {
+  const [ airlineFilter, setAirlineFilter ] = useState('')
+
+  const filteredRoutesByAirline = data.routes.filter(route => {
+    if (airlineFilter === '') {
+      return true
+    } else {
+      return route.airline === airlineFilter
+    }
+  })
+  
   return (
     <div className="app">
       <header className="header">
         <h1 className="title">Airline Routes</h1>
       </header>
       <section>
-        <Table columns={columns} rows={data.routes} format={formatValue} perPage={33}/>
+        <Select setAirlineFilter={setAirlineFilter}/>
+        <Table columns={columns} rows={filteredRoutesByAirline} format={formatValue} perPage={25}/>
       </section>
     </div>
   )
