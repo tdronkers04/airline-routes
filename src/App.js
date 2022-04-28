@@ -53,9 +53,9 @@ const App = () => {
       <section>
         <div className='filter'>
           Show routes on 
-          <Select options='airlines' filter={setAirlineFilter} />
+          <Select options='airlines' currentData={filteredRoutes} filter={setAirlineFilter} />
           flying in or out of
-          <Select options='airports' filter={setAirportFilter} />
+          <Select options='airports' currentData={filteredRoutes} filter={setAirportFilter} />
           <button onClick={handleClearFilters}>Show All Routes</button>
         </div>
   

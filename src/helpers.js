@@ -12,3 +12,13 @@ export const filterRoutes = (routeData, airlineID, airportCode) => {
     }
   });
 }
+
+export const checkAvailable = (filteredRoutes, options, value) => {
+  if (options === 'airlines') {
+    const found = !!filteredRoutes.find(route => route.airline === value)
+    return found
+  } 
+  const found =  !!filteredRoutes.find(route => route.src === value) || 
+    !!filteredRoutes.find(route => route.dest === value)
+  return found
+}
