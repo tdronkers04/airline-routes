@@ -21,10 +21,19 @@ const formatValue = (property, name) => {
 }
 
 const App = () => {
-  const [ airlineFilter, setAirlineFilter ] = useState('all')
-  const [ airportFilter, setAirportFilter ] = useState('all')
+  const [ airlineFilter, setAirlineFilter ] = useState('all');
+  const [ airportFilter, setAirportFilter ] = useState('all');
   
   const filteredRoutes = filterRoutes(data.routes, airlineFilter, airportFilter)
+
+  const handleClearFilters = () => {
+    setAirlineFilter('all');
+    setAirportFilter('all');
+    const airlineDefault = document.getElementById('airlines-default');
+    const airportDefault = document.getElementById('airports-default');
+    airlineDefault.selected = true;
+    airportDefault.selected = true;
+  }
   
   return (
     <div className="app">
@@ -37,6 +46,7 @@ const App = () => {
           <Select options='airlines' filter={setAirlineFilter}/>
           flying in or out of
           <Select options='airports' filter={setAirportFilter} />
+          <button onClick={handleClearFilters}>Show All Routes</button>
         </div>
   
         <Table columns={columns} rows={filteredRoutes} format={formatValue} perPage={25}/>
