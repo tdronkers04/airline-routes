@@ -3,6 +3,7 @@ import './App.css';
 import data, { getAirlineById, getAirportByCode } from './data'
 import Table from './components/Table';
 import Select from './components/Select';
+import { filterRoutes } from './helpers';
 
 const columns = [
   {name: 'Airline', property: 'airline'},
@@ -20,15 +21,10 @@ const formatValue = (property, name) => {
 }
 
 const App = () => {
-  const [ airlineFilter, setAirlineFilter ] = useState('')
-
-  const filteredRoutesByAirline = data.routes.filter(route => {
-    if (airlineFilter === '') {
-      return true
-    } else {
-      return route.airline === airlineFilter
-    }
-  })
+  const [ airlineFilter, setAirlineFilter ] = useState('all')
+  const [ airportFilter, setAirportFilter ] = useState('all')
+  
+  const filteredRoutes = filterRoutes(data.routes, airlineFilter, airportFilter)
   
   return (
     <div className="app">
@@ -36,8 +32,14 @@ const App = () => {
         <h1 className="title">Airline Routes</h1>
       </header>
       <section>
-        <Select setAirlineFilter={setAirlineFilter}/>
-        <Table columns={columns} rows={filteredRoutesByAirline} format={formatValue} perPage={25}/>
+        <div className='filter'>
+          Show routes on 
+          <Select options='airlines' filter={setAirlineFilter}/>
+          flying in or out of
+          <Select options='airports' filter={setAirportFilter} />
+        </div>
+  
+        <Table columns={columns} rows={filteredRoutes} format={formatValue} perPage={25}/>
       </section>
     </div>
   )
