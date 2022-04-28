@@ -3,6 +3,7 @@ import './App.css';
 import data, { getAirlineById, getAirportByCode } from './data'
 import Table from './components/Table';
 import Select from './components/Select';
+import Map from './components/Map';
 import { filterRoutes } from './helpers';
 
 const columns = [
@@ -51,6 +52,7 @@ const App = () => {
         <h1 className="title">Airline Routes</h1>
       </header>
       <section>
+        <Map currentData={filteredRoutes} />
         <div className='filter'>
           Show routes on 
           <Select options='airlines' currentData={filteredRoutes} filter={setAirlineFilter} />
@@ -58,7 +60,6 @@ const App = () => {
           <Select options='airports' currentData={filteredRoutes} filter={setAirportFilter} />
           <button onClick={handleClearFilters}>Show All Routes</button>
         </div>
-  
         <Table 
           columns={columns} 
           rows={filteredRoutes} 

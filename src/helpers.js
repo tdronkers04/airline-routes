@@ -1,3 +1,5 @@
+import data from "./data";
+
 export const filterRoutes = (routeData, airlineID, airportCode) => {
   airlineID = airlineID === 'all' ? 'all' : parseInt(airlineID)
   return routeData.filter(route => {
@@ -21,4 +23,16 @@ export const checkAvailable = (filteredRoutes, options, value) => {
   const found =  !!filteredRoutes.find(route => route.src === value) || 
     !!filteredRoutes.find(route => route.dest === value)
   return found
+}
+
+export const lookupLatLong = (src, dest) => {
+  const srcObj = data.airports.filter(airport => {
+    return airport.code === src
+  })[0]
+
+  const destObj = data.airports.filter(airport => {
+    return airport.code === dest
+  })[0]
+
+  return [srcObj, destObj]
 }

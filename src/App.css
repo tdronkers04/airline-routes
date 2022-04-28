@@ -52,10 +52,6 @@ select {
   margin: 0 .5em;
 }
 
-/* select option {
-  color: black;
-} */
-
 select option:disabled {
   color: #a9a9a9;
 }
@@ -104,10 +100,8 @@ svg circle.destination {
   stroke: red;
   stroke-width: .3;
   fill: transparent;
-  r: 0.8;
 }
 
 svg circle.source {
   fill: lightgreen;
-  r: 0.5;
 }
