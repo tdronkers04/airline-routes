@@ -49,7 +49,7 @@ const App = () => {
   return (
     <div className="app">
       <header className="header">
-        <h1 className="title">Airline Routes</h1>
+        <h1 className="title">Airline Routes Visualization Tool</h1>
       </header>
       <section>
         <Map currentData={filteredRoutes} />
