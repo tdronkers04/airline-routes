@@ -11,8 +11,8 @@ const Select = ({ options, filter }) => {
   if (options === 'airports') {
     return (
       <div>
-        <select id="select-airports" onChange={handleSelect}>
-          <option id="airports-default" value='all' selected>All Airports</option>
+        <select id="select-airports" defaultValue={"all"} onChange={handleSelect}>
+          <option id="airports-default" value='all'>All Airports</option>
           {data.airports.map(airport => {
             return <option key={airport.code} value={airport.code}>{airport.name}</option>
           })}
@@ -23,8 +23,8 @@ const Select = ({ options, filter }) => {
   
   return (
     <div>
-      <select id="select-airlines" onChange={handleSelect}>
-        <option id="airlines-default" value='all' selected>All Airlines</option>
+      <select id="select-airlines" defaultValue={"all"} onChange={handleSelect}>
+        <option id="airlines-default" value='all'>All Airlines</option>
         {data.airlines.map(airline => {
           return <option key={airline.id} value={airline.id}>{airline.name}</option>
         })}

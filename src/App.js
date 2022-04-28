@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import data, { getAirlineById, getAirportByCode } from './data'
 import Table from './components/Table';
@@ -21,11 +21,21 @@ const formatValue = (property, name) => {
 }
 
 const App = () => {
+  const perPage = 25
   const [ airlineFilter, setAirlineFilter ] = useState('all');
   const [ airportFilter, setAirportFilter ] = useState('all');
+  const [range, setRange] = useState({start: 0, end: perPage - 1})
   
   const filteredRoutes = filterRoutes(data.routes, airlineFilter, airportFilter)
 
+  useEffect(() => {
+    const newRange = {
+      start: 0,
+      end: filteredRoutes.length < perPage ? filteredRoutes.length - 1 : perPage
+    }
+    setRange(newRange)
+  }, [filteredRoutes.length])
+  
   const handleClearFilters = () => {
     setAirlineFilter('all');
     setAirportFilter('all');
@@ -43,13 +53,19 @@ const App = () => {
       <section>
         <div className='filter'>
           Show routes on 
-          <Select options='airlines' filter={setAirlineFilter}/>
+          <Select options='airlines' filter={setAirlineFilter} />
           flying in or out of
           <Select options='airports' filter={setAirportFilter} />
           <button onClick={handleClearFilters}>Show All Routes</button>
         </div>
   
-        <Table columns={columns} rows={filteredRoutes} format={formatValue} perPage={25}/>
+        <Table 
+          columns={columns} 
+          rows={filteredRoutes} 
+          format={formatValue} 
+          perPage={perPage}
+          range={range}
+          setRange={setRange}/>
       </section>
     </div>
   )

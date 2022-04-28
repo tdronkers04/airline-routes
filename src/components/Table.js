@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-const Table = ({ columns, rows, format, perPage }) => {
-  const [range, setRange] = useState({start: perPage - perPage, end: perPage - 1})
+const Table = ({ columns, rows, format, range, setRange, perPage }) => {
 
   const handleClick = (event) => {
     const newRange = {}
